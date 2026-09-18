@@ -42,10 +42,10 @@ public class Principal {
             }
         }
 
-        // 3.8 - imprimindo aniversariantes dos meses 10 e 12
+        // 3.8 - imprimindo aniversariantes dos meses 10 e 12 (corrigido: usando || em vez de &&)
         System.out.println("\n=== 3.8 - aniversariantes de outubro (10) e dezembro (12) ===");
         List<Funcionario> aniversariantes = funcionarios.stream()
-                .filter(f -> f.getDataNascimento().getMonthValue() == 10 && f.getDataNascimento().getMonthValue() == 12)
+                .filter(f -> f.getDataNascimento().getMonthValue() == 10 || f.getDataNascimento().getMonthValue() == 12)
                 .toList();
 
         if (aniversariantes.isEmpty()) {
