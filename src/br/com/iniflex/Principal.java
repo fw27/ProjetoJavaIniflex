@@ -55,6 +55,34 @@ public class Principal {
                 System.out.println(f.getNome() + " faz aniversario em " + f.getDataNascimentoFormatada());
             }
         }
+
+        // 3.9 - pegando o funcionario com maior idade (quem nasceu antes tem a menor data)
+        System.out.println("\n=== 3.9 - funcionario com maior idade ===");
+        Funcionario maisVelho = java.util.Collections.min(funcionarios, java.util.Comparator.comparing(Funcionario::getDataNascimento));
+        System.out.println("nome: " + maisVelho.getNome() + " | idade: " + maisVelho.getIdade() + " anos");
+
+        // 3.10 - imprimindo os funcionarios por ordem alfabetica
+        System.out.println("\n=== 3.10 - funcionarios em ordem alfabetica ===");
+        List<Funcionario> ordenadosPorNome = new ArrayList<>(funcionarios);
+        ordenadosPorNome.sort(java.util.Comparator.comparing(Funcionario::getNome));
+        imprimirFuncionarios(ordenadosPorNome);
+
+        // 3.11 - calculando o total de salarios de todos os funcionarios
+        System.out.println("\n=== 3.11 - total dos salarios ===");
+        BigDecimal totalSalarios = funcionarios.stream()
+                .map(Funcionario::getSalario)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        java.text.DecimalFormat dfMoeda = new java.text.DecimalFormat("#,##0.00", new java.text.DecimalFormatSymbols(java.util.Locale.forLanguageTag("pt-BR")));
+        System.out.println("total dos salarios: R$ " + dfMoeda.format(totalSalarios));
+
+        // 3.12 - calculando quantos salarios minimos cada um ganha (salario minimo = R$ 1212,00)
+        System.out.println("\n=== 3.12 - quantidade de salarios minimos por funcionario ===");
+        BigDecimal salarioMinimo = new BigDecimal("1212.00");
+        for (Funcionario f : funcionarios) {
+            // tentativa de divisao direta sem passar arredondamento
+            BigDecimal qtd = f.getSalario().divide(salarioMinimo);
+            System.out.println(f.getNome() + " ganha " + qtd + " salarios minimos");
+        }
     }
 
     // metodo pra imprimir a lista de funcionarios formatadinha
