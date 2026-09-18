@@ -16,8 +16,25 @@ public class Principal {
         // 3.2 - removendo o joao da lista conforme pedido
         funcionarios.removeIf(f -> f.getNome().equalsIgnoreCase("João"));
 
-        System.out.println("=== 3.1 e 3.2 - funcionarios inseridos e joao removido com sucesso ===");
-        System.out.println("quantidade atual de funcionarios na lista: " + funcionarios.size());
+        // 3.3 - imprimindo todos os funcionarios com formatacao pt-br (dd/mm/aaaa e separadores de milhar/decimal)
+        System.out.println("=== 3.3 - lista de funcionarios cadastrados (sem o joao) ===");
+        imprimirFuncionarios(funcionarios);
+
+        // 3.4 - aplicando o aumento de 10% pra todo mundo e atualizando a lista
+        for (Funcionario f : funcionarios) {
+            BigDecimal novoSalario = f.getSalario().multiply(new BigDecimal("1.10")).setScale(2, java.math.RoundingMode.HALF_UP);
+            f.setSalario(novoSalario);
+        }
+
+        System.out.println("\n=== 3.4 - lista apos aumento salarial de 10% ===");
+        imprimirFuncionarios(funcionarios);
+    }
+
+    // metodo pra imprimir a lista de funcionarios formatadinha
+    private static void imprimirFuncionarios(List<Funcionario> lista) {
+        for (Funcionario f : lista) {
+            System.out.println(f);
+        }
     }
 
     // metodo pra popular a lista com os dados passados no enunciado

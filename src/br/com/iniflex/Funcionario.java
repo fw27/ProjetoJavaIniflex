@@ -58,7 +58,7 @@ public class Funcionario extends Pessoa {
 
     @Override
     public String toString() {
-        return String.format("Nome: %-10s | Data Nasc: %s | Salário: R$ %10s | Função: %s",
+        return String.format("Nome: %-10s | Data Nasc: %s | Salario: R$ %10s | Funcao: %s",
                 getNome(), getDataNascimentoFormatada(), getSalarioFormatado(), funcao);
     }
 }
