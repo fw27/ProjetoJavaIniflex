@@ -28,6 +28,33 @@ public class Principal {
 
         System.out.println("\n=== 3.4 - lista apos aumento salarial de 10% ===");
         imprimirFuncionarios(funcionarios);
+
+        // 3.5 - agrupando os funcionarios por funcao usando map e collectors
+        java.util.Map<String, List<Funcionario>> funcionariosPorFuncao = funcionarios.stream()
+                .collect(java.util.stream.Collectors.groupingBy(Funcionario::getFuncao));
+
+        // 3.6 - imprimindo os funcionarios agrupados por cada funcao
+        System.out.println("\n=== 3.6 - funcionarios agrupados por funcao ===");
+        for (java.util.Map.Entry<String, List<Funcionario>> entry : funcionariosPorFuncao.entrySet()) {
+            System.out.println("\nfuncao: " + entry.getKey());
+            for (Funcionario f : entry.getValue()) {
+                System.out.println("  - " + f.getNome() + " | Salario: R$ " + f.getSalarioFormatado());
+            }
+        }
+
+        // 3.8 - imprimindo aniversariantes dos meses 10 e 12
+        System.out.println("\n=== 3.8 - aniversariantes de outubro (10) e dezembro (12) ===");
+        List<Funcionario> aniversariantes = funcionarios.stream()
+                .filter(f -> f.getDataNascimento().getMonthValue() == 10 && f.getDataNascimento().getMonthValue() == 12)
+                .toList();
+
+        if (aniversariantes.isEmpty()) {
+            System.out.println("nenhum funcionario encontrado");
+        } else {
+            for (Funcionario f : aniversariantes) {
+                System.out.println(f.getNome() + " faz aniversario em " + f.getDataNascimentoFormatada());
+            }
+        }
     }
 
     // metodo pra imprimir a lista de funcionarios formatadinha
