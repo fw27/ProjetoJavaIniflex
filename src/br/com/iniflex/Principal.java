@@ -78,10 +78,11 @@ public class Principal {
         // 3.12 - calculando quantos salarios minimos cada um ganha (salario minimo = R$ 1212,00)
         System.out.println("\n=== 3.12 - quantidade de salarios minimos por funcionario ===");
         BigDecimal salarioMinimo = new BigDecimal("1212.00");
+        java.text.DecimalFormat dfQtd = new java.text.DecimalFormat("#,##0.00", new java.text.DecimalFormatSymbols(java.util.Locale.forLanguageTag("pt-BR")));
         for (Funcionario f : funcionarios) {
-            // tentativa de divisao direta sem passar arredondamento
-            BigDecimal qtd = f.getSalario().divide(salarioMinimo);
-            System.out.println(f.getNome() + " ganha " + qtd + " salarios minimos");
+            // resolvido: passando escala de 2 casas decimais e arredondamento half_up
+            BigDecimal qtd = f.getSalario().divide(salarioMinimo, 2, java.math.RoundingMode.HALF_UP);
+            System.out.println(f.getNome() + " ganha " + dfQtd.format(qtd) + " salarios minimos");
         }
     }
 
